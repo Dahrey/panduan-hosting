@@ -1,0 +1,42 @@
+Ikuti langkah ini:
+
+1) Controller class pengontrol harus dimulai dengan huruf kapital.
+
+2) Nama file harus dimulai dengan huruf kapital.
+
+Karena Linux peka huruf besar / kecil.
+
+Proses penyiapan dasar:
+
+1) Pertama-tama Anda perlu mengarahkan sub-domain Anda ke jalur folder tertentu di server hosting.
+
+2) Unggah kode ke jalur folder sub-domain yang ditunjuk.
+
+3) Periksa folder dan grup pemilik file dan izin. Izin folder 755 dan Izin file ke 644.
+
+4) Buat database dan impor file SQL database.
+
+5) Konfigurasi BASE_URL in /application/config/config.php
+
+$config['base_url'] = 'http://sub-domain.domain.com/';
+6) Ubah encryption key di file config
+
+$config['encryption_key'] = 'to_any_16_character_alpha_numeric_special_character';
+CATATAN: Jangan gunakan "$" sebagai kunci. PHP dianggap sebagai variabel.
+
+7) Konfigurasikan koneksi database di /application/config/database.php
+
+$db['default']['hostname'] = "database_hostname";
+$db['default']['username'] = "database_username";
+$db['default']['password'] = "database_password";
+$db['default']['database'] = "database_name";
+$db['default']['dbdriver'] = 'database_driver';
+CATATAN: - Anda perlu menetapkan pengguna database dengan hak yang tepat dalam database yang dibuat. - Pilih nama driver database yang tepat seperti "mysqli".
+
+8) Periksa kode .htaccess jika Anda tidak ingin index.php di URL. Kode .htaccess dasar untuk rewrite module
+
+RewriteEngine on
+RewriteCond $1 !^(index\.php|resources|robots\.txt)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?/$1 [L]
